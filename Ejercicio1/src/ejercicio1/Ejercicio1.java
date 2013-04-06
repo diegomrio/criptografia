@@ -1,19 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejercicio1;
 
-/**
- *
- * @author Diego
- */
 public class Ejercicio1 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        int a, b, bAux, m, x;
+        bAux = b;
+        
+        while(bAux > 0){
+            if((bAux % 2) == 1)
+                x = x * a;
+            
+            a = a * a;
+            b = b / 2;
+        }
     }
 }
