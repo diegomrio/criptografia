@@ -11,24 +11,25 @@ public class Ejercicio1 {
 	long   fin;
 	long   tiempo;
         
-        BigInteger a = new BigInteger("664587548476");
-        BigInteger b = new BigInteger("654");
-        BigInteger m = new BigInteger("3");
+        BigInteger a = new BigInteger("66548478465654321");
+        BigInteger b = new BigInteger("25521");
+        BigInteger m = new BigInteger("7");
         BigInteger bAux = new BigInteger("0");
         BigInteger x = new BigInteger("1");
         bAux = b;
         
-        System.out.println("baux vale: "+bAux);
         
         inicio = (new Date()).getTime();
         
         while(bAux.signum() == 1){
-            if( bAux.remainder(new BigInteger("2")).equals(1))
+            if( bAux.remainder(new BigInteger("2")).compareTo(new BigInteger("1")) == 0 )
                 x = x.multiply(a);
             
             a = a.multiply(a);
             bAux = bAux.divide(new BigInteger("2"));
         }
+        
+        x = x.mod(m);
         
         fin = (new Date()).getTime();	
 	tiempo = fin - inicio;
