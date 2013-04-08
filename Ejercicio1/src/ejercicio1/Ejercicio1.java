@@ -11,9 +11,9 @@ public class Ejercicio1 {
 	long   fin;
 	long   tiempo;
         
-        BigInteger a = new BigInteger("66548478465654321");
-        BigInteger b = new BigInteger("25521");
-        BigInteger m = new BigInteger("7");
+        BigInteger a = new BigInteger("888888888888888");
+        BigInteger b = new BigInteger("123456789");
+        BigInteger m = new BigInteger("12345");
         BigInteger bAux = new BigInteger("0");
         BigInteger x = new BigInteger("1");
         bAux = b;
@@ -23,13 +23,11 @@ public class Ejercicio1 {
         
         while(bAux.signum() == 1){
             if( bAux.remainder(new BigInteger("2")).compareTo(new BigInteger("1")) == 0 )
-                x = x.multiply(a);
+                x = x.multiply(a).mod(m);
             
-            a = a.multiply(a);
+            a = a.multiply(a).mod(m);
             bAux = bAux.divide(new BigInteger("2"));
         }
-        
-        x = x.mod(m);
         
         fin = (new Date()).getTime();	
 	tiempo = fin - inicio;
