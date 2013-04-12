@@ -16,21 +16,21 @@ public class Pract1CRIP {
     public static final BigInteger UNO = BigInteger.ONE;
        
     // Calcula a elevado a b módulo p
-    public static BigInteger Potencia(BigInteger b, BigInteger a, BigInteger p)
-    {
-        BigInteger r = new BigInteger("1");
-        int j = 0, numbits;
-
-        b = b.mod(p);
-        numbits = a.bitLength();
-        while(j < numbits) {
-            if(a.testBit(j))
-                r = r.multiply(b).mod(p);
-            b = b.multiply(b).mod(p);
-            j++;
-        }
+    public static BigInteger Potencia(BigInteger a, BigInteger b, BigInteger p){
+        BigInteger bAux = new BigInteger("0");
+        BigInteger x = new BigInteger("1");
+        bAux = b;
         
-        return r;
+        while(bAux.signum() == 1){
+            if( bAux.remainder(new BigInteger("2")).compareTo(new BigInteger("1")) == 0 )
+                x = x.multiply(a).mod(p);
+            
+            a = a.multiply(a).mod(p);
+            bAux = bAux.divide(new BigInteger("2"));
+        }        
+        x = x.mod(p);
+        
+        return x;
     }
     
     // Calcula el logaritmo en base a de b módulo p
@@ -68,14 +68,14 @@ public class Pract1CRIP {
     
     // Calcula la raíz cuadrada de un BigInteger
     // Devuelve null si no existiera
-    private static BigInteger sqrt(BigInteger m){
-      int diff = m.compareTo(CERO);
+    private static BigInteger sqrt(BigInteger p){
+      int diff = p.compareTo(CERO);
       if (diff < 0)
           return null; // No existe la raíz cuadrada
       if (diff == 0)
           return BigInteger.valueOf(0);
-      BigDecimal n = new BigDecimal(m);
-      byte[] barray = new byte[m.bitLength()/16+1];
+      BigDecimal n = new BigDecimal(p);
+      byte[] barray = new byte[p.bitLength()/16+1];
       barray[0] = (byte)255;
       BigDecimal two = new BigDecimal("2");
       BigDecimal r = new BigDecimal(new BigInteger(1,barray));
@@ -93,31 +93,30 @@ public class Pract1CRIP {
      */
     public static void main(String[] args) {
          
-        System.out.println("Parámetros con mismas cifras m (tq p primo), a(tq a<p), b(tq b<p.");
+        System.out.println("Parametros con mismas cifras p (tq p primo), a(tq a<p), b(tq b<p).");
         
         if (args.length != 3){ 
-           System.out.println("Número de parámetros incorrecto, introduce m, a y b.");
+           System.out.println("Numero de parametros incorrecto, introduce p, a y b.");
         }  
         
         long   inicio;
 	long   fin;
 	long   tiempo;
          
-        BigInteger m = new BigInteger(args[0]); 
-        BigInteger a = new BigInteger(args[1]);
-        BigInteger b = new BigInteger(args[2]);
-        BigInteger log = null;
+        BigInteger p = new BigInteger("10399969"); 
+        BigInteger a = new BigInteger("10098765");
+        BigInteger b = new BigInteger("9009304");
+        BigInteger logDis = null;
         
         inicio = (new Date()).getTime();
         
-    
-             log = logaritmoDiscreto(a, b, m);
+        logDis = logaritmoDiscreto(a, b, p);
         
         fin = (new Date()).getTime();	
 	tiempo = fin - inicio;
         
         System.out.println("Tiempo: "+(tiempo/1000)+" segundos");
-        System.out.println("El logaritmo discreto es: "+log);
+        System.out.println("El logaritmo discreto es: "+logDis);
        
     }
     
