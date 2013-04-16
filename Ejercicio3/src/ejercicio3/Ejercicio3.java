@@ -15,12 +15,12 @@ public class Ejercicio3 {
         BigInteger resM = new BigInteger("1");
         BigInteger resA = new BigInteger("0");
         
-        a[0] = new BigInteger("1654888886341"); 
-        a[1] = new BigInteger("2256484312548"); 
-        a[2] = new BigInteger("6548741236458"); 
-        m[0] = new BigInteger("46381"); 
-        m[1] = new BigInteger("768479"); 
-        m[2] = new BigInteger("9476407"); 
+        a[0] = new BigInteger("4"); 
+        a[1] = new BigInteger("1"); 
+        a[2] = new BigInteger("6"); 
+        m[0] = new BigInteger("6"); 
+        m[1] = new BigInteger("9"); 
+        m[2] = new BigInteger("10"); 
             
         inicio = (new Date()).getTime();
         
