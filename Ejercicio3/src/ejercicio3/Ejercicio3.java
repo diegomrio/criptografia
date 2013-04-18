@@ -68,23 +68,17 @@ public class Ejercicio3 {
             a[0] = a[0].multiply(auxInv).mod(m[0]);
             b[0] = b[0].multiply(auxInv).mod(m[0]);
         }
-        
-        System.out.println(a[0]+" = "+b[0]+"(mod "+m[0]+")");
-        
-            
+                   
         for(int i = 1; i < 3; i++){    
             auxA = (a[i].multiply(m[i-1])).mod(m[i]);
             
             auxB = ((b[i].subtract(b[i-1].multiply(a[i]))).abs()).mod(m[i]);
-            System.out.println("b[i]: "+b[i]);
-            System.out.println("b[i-1]: "+b[i-1]);
-            System.out.println("a[i]: "+a[i]);
-            System.out.println(b[i].subtract(b[i-1].multiply(a[i])));
-            //auxAbs = (b[i].subtract(b[i-1].multiply(a[i]))).abs();  
-            //b[i] = auxAbs.mod(m[i]);
-            System.out.println(b[i]+"-"+b[i-1]+"*"+a[i]);
+          
             a[i] = auxA;
             b[i] = auxB;
+            
+            System.out.println("a[i]:"+a[i]);
+            System.out.println("b[i]:"+b[i]);
             
             //if(a[i].gcd(m[i]).mod(b[i]).equals(new BigInteger("0"))){
             if(a[i].gcd(m[i]).remainder(b[i]).equals(new BigInteger("0"))){
@@ -97,6 +91,16 @@ public class Ejercicio3 {
                 a[i] = a[i].multiply(auxInv).mod(m[i]);
                 b[i] = b[i].multiply(auxInv).mod(m[i]);
             }
+            System.out.println("a[i]:"+a[i]);
+            System.out.println("b[i]:"+b[i]);
+            System.out.println("m[i]:"+m[i]);
+            
+            b[i-1] = b[i-1].add(m[i-1].multiply(b[i]));
+            m[i-1] = m[i-1].multiply(m[i]);
+            
+            System.out.println("a[i-1]:"+a[i-1]);
+            System.out.println("b[i-1]:"+b[i-1]);
+            System.out.println("m[i-1]:"+m[i-1]);
         }
         
         System.out.println("La congruencia resultado es: x="+b[2]+"(mod "+m[2]+")");
