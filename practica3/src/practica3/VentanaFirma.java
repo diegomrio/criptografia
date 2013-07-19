@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -55,9 +56,11 @@ public class VentanaFirma extends javax.swing.JFrame {
         textMensaje = new javax.swing.JTextField();
         botonCifrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        mensajeCifrado = new javax.swing.JLabel();
+        mensajeCifrado2 = new javax.swing.JLabel();
         botonBuscarFichero = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mensajeCifrado = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
         textMensajeDes = new javax.swing.JTextField();
         textDesc = new javax.swing.JLabel();
@@ -70,6 +73,7 @@ public class VentanaFirma extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -100,7 +104,7 @@ public class VentanaFirma extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cifrado"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Firma de Mensaje"));
 
         textMensaje.setForeground(new java.awt.Color(153, 153, 153));
         textMensaje.setText("Introducir Texto");
@@ -113,16 +117,16 @@ public class VentanaFirma extends javax.swing.JFrame {
             }
         });
 
-        botonCifrar.setText("Cifrar");
+        botonCifrar.setText("Firmar");
         botonCifrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCifrarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Texto cifrado:");
+        jLabel1.setText("Texto firmado:");
 
-        mensajeCifrado.setText("  ");
+        mensajeCifrado2.setText("  ");
 
         botonBuscarFichero.setText("Buscar Mensaje");
         botonBuscarFichero.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +136,8 @@ public class VentanaFirma extends javax.swing.JFrame {
         });
 
         jLabel3.setText("ó");
+
+        jScrollPane1.setViewportView(mensajeCifrado);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -146,13 +152,14 @@ public class VentanaFirma extends javax.swing.JFrame {
                         .addComponent(botonCifrar)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonBuscarFichero))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addGap(3, 3, 3)
+                        .addComponent(mensajeCifrado2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mensajeCifrado)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -164,14 +171,16 @@ public class VentanaFirma extends javax.swing.JFrame {
                     .addComponent(botonCifrar)
                     .addComponent(botonBuscarFichero)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(mensajeCifrado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(mensajeCifrado2)
+                        .addComponent(jLabel1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Descifrado"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Comprobacion de Firma"));
 
         textMensajeDes.setForeground(new java.awt.Color(153, 153, 153));
         textMensajeDes.setText("Introducir Texto");
@@ -202,14 +211,14 @@ public class VentanaFirma extends javax.swing.JFrame {
             }
         });
 
-        botonBuscarClave.setText("Buscar Clave");
+        botonBuscarClave.setText("Buscar C. Publica");
         botonBuscarClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarClaveActionPerformed(evt);
             }
         });
 
-        botonDescifrar.setText("Descifrar");
+        botonDescifrar.setText("Comp. Firma");
         botonDescifrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonDescifrarActionPerformed(evt);
@@ -230,28 +239,29 @@ public class VentanaFirma extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(textMensajeDes, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonBuscarDescifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonBuscarFirma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(botonDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botonBuscarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(textMensajeDes, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botonBuscarFirma, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonDescifrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarClave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarDescifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textDesc))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(57, 57, 57)
+                                .addComponent(textDesc))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,8 +285,15 @@ public class VentanaFirma extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonDescifrar)
                     .addComponent(jLabel7))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,13 +301,13 @@ public class VentanaFirma extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +318,9 @@ public class VentanaFirma extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -407,7 +426,7 @@ public class VentanaFirma extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(VentanaCifrado.class.getName()).log(Level.SEVERE, null, ex);
             }
-            fichMensaje.println("Firma digital");
+            fichMensaje.println("Mensaje original");
             fichMensaje.println(s);
             fichMensaje.close();
 
@@ -433,7 +452,11 @@ public class VentanaFirma extends javax.swing.JFrame {
             // Calculamos el cifrado del resumen
             BigInteger res = new BigInteger(resumenNum);
             res = res.modPow(new BigInteger(e.toString()), new BigInteger(n.toString()));
-            this.mensajeCifrado.setText(res.toString());
+            //this.mensajeCifrado2.setText(res.toString());
+            
+            DefaultListModel m = new DefaultListModel();
+            m.add(0, res.toString());
+            this.mensajeCifrado.setModel(m);
             
             PrintWriter fichFirma = null;
             try {
@@ -505,7 +528,7 @@ public class VentanaFirma extends javax.swing.JFrame {
                 // Calculamos el cifrado del resumen
                 BigInteger res = new BigInteger(resumenNum);
                 res = res.modPow(new BigInteger(e.toString()), new BigInteger(n.toString()));
-                this.mensajeCifrado.setText(res.toString());
+                this.mensajeCifrado2.setText(res.toString());
                 
                 PrintWriter fichFirma = null;
                 try {
@@ -567,15 +590,20 @@ public class VentanaFirma extends javax.swing.JFrame {
     private void botonDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDescifrarActionPerformed
         String s = null;
         BufferedReader buffMensaje = null;
-        try {
-            buffMensaje = new BufferedReader(new FileReader(ficheroMensaje.getAbsolutePath()));
-            buffMensaje.readLine();
-            s = buffMensaje.readLine();
-            buffMensaje.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VentanaFirma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(VentanaCifrado.class.getName()).log(Level.SEVERE, null, ex);
+        if (ficheroMensaje != null) {
+            try {
+                buffMensaje = new BufferedReader(new FileReader(ficheroMensaje.getAbsolutePath()));
+                buffMensaje.readLine();
+                s = buffMensaje.readLine();
+                buffMensaje.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(VentanaFirma.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaCifrado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            s = this.textMensajeDes.getText();
         }
         
         
@@ -648,6 +676,10 @@ public class VentanaFirma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La firma es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_botonDescifrarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscarClave;
@@ -657,6 +689,7 @@ public class VentanaFirma extends javax.swing.JFrame {
     private javax.swing.JButton botonCifrar;
     private javax.swing.JButton botonDescifrar;
     private javax.swing.JButton botonGeneraClaves;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -668,7 +701,9 @@ public class VentanaFirma extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel mensajeCifrado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList mensajeCifrado;
+    private javax.swing.JLabel mensajeCifrado2;
     private javax.swing.JLabel textDesc;
     private javax.swing.JTextField textMensaje;
     private javax.swing.JTextField textMensajeDes;
